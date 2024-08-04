@@ -27,11 +27,24 @@ function multiplication(...numbers) {
 
 function division(...numbers) {
     let sum = 1;
+    let counter = 0;
+
     for (const number of numbers) {
-        sum /= number;
+        if (counter !== 0) {
+            sum /= number;
+            counter++;
+            continue;
+        }
+
+        sum = number;
+        counter++;
     }
     
     return sum;
 }
 
-console.log(division(3, 2))
+// function evaluate(inputEvaluation) {
+
+// }
+
+console.log(division(3, 2, 2, 1))
