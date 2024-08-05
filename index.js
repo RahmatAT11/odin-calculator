@@ -43,8 +43,38 @@ function division(...numbers) {
     return sum;
 }
 
-// function evaluate(inputEvaluation) {
+function evaluate(inputEvaluation) {
+    inputEvaluation = inputEvaluation.replaceAll(" ", "");
+    let inputs = inputEvaluation.split("");
 
-// }
+    if (inputs.length !== 3) return;
 
-console.log(division(3, 2, 2, 1))
+    if (operand1 === null && sum === null) {
+
+    } else {
+        operand1 = inputs[0];
+    }
+
+    operand2 = inputs[2];
+    operator = inputs[1];
+
+    if (operator === "+") {
+        sum = addition(operand1, operand2);
+    } else if (operator === "-") {
+        sum = substraction(operand1, operand2);
+    } else if (operator === "*") {
+        sum = multiplication(operand1, operand2);
+    } else if (operator === "/") {
+        sum = division(operand1, operand2);
+    }
+
+    operand1 = null;
+    operand2 = null;
+    operator = null;
+}
+
+let operand1, operand2, operator, sum = null;
+
+let inputPrompt = prompt("Type the evaluation (only with +,-,*,/):");
+evaluate(inputPrompt);
+console.log(sum);
