@@ -1,7 +1,7 @@
 function addition(...numbers) {
     let sum = 0;
     for (const number of numbers) {
-        sum += number;
+        sum += +number;
     }
     
     return sum;
@@ -46,6 +46,7 @@ function division(...numbers) {
 function evaluate(inputEvaluation) {
     inputEvaluation = inputEvaluation.replaceAll(" ", "");
     let inputs = inputEvaluation.split("");
+    console.log(inputs)
 
     if (inputs.length !== 3) return;
 
@@ -75,6 +76,8 @@ function evaluate(inputEvaluation) {
 
 let operand1, operand2, operator, sum = null;
 
-let inputPrompt = prompt("Type the evaluation (only with +,-,*,/):");
-evaluate(inputPrompt);
-console.log(sum);
+while (true) {
+    let inputPrompt = prompt("Type the evaluation (only with +,-,*,/):");
+    evaluate(inputPrompt);
+    console.log(sum);
+}
