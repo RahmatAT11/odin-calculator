@@ -1,44 +1,23 @@
 function addition(...numbers) {
-    let sum = 0;
-    for (const number of numbers) {
-        sum += +number;
-    }
+    let sum = numbers[0] + numbers[1];
     
     return sum;
 }
 
 function substraction(...numbers) {
-    let sum = 0;
-    for (const number of numbers) {
-        sum -= number;
-    }
+    let sum = numbers[0] - numbers[1];
     
     return sum;
 }
 
 function multiplication(...numbers) {
-    let sum = 1;
-    for (const number of numbers) {
-        sum *= number;
-    }
+    let sum = numbers[0] * numbers[1];
     
     return sum;
 }
 
 function division(...numbers) {
-    let sum = 1;
-    let counter = 0;
-
-    for (const number of numbers) {
-        if (counter !== 0) {
-            sum /= number;
-            counter++;
-            continue;
-        }
-
-        sum = number;
-        counter++;
-    }
+    let sum = numbers[0] / numbers[1];
     
     return sum;
 }
@@ -46,16 +25,10 @@ function division(...numbers) {
 function evaluate(inputEvaluation) {
     inputEvaluation = inputEvaluation.replaceAll(" ", "");
     let inputs = inputEvaluation.split("");
-    console.log(inputs)
 
     if (inputs.length !== 3) return;
-
-    if (operand1 === null && sum === null) {
-
-    } else {
-        operand1 = inputs[0];
-    }
-
+    
+    operand1 = inputs[0];
     operand2 = inputs[2];
     operator = inputs[1];
 
