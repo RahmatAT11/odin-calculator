@@ -49,8 +49,8 @@ function evaluate(inputEvaluation) {
 
 let operand1, operand2, operator, sum = null;
 
-while (true) {
-    let inputPrompt = prompt("Type the evaluation (only with +,-,*,/):");
-    evaluate(inputPrompt);
-    console.log(sum);
-}
+// while (true) {
+//     let inputPrompt = prompt("Type the evaluation (only with +,-,*,/):");
+//     evaluate(inputPrompt);
+//     console.log(sum);
+// }
