@@ -49,6 +49,10 @@ p, h1, h2, h3, h4, h5, h6 {
 Main CSS Code
 */
 
+ul {
+    padding: 0;
+}
+
 ul > li {
     list-style-type: none;
     width: 100px;
@@ -78,6 +82,7 @@ body {
 
 main {
     align-items: center;
+    justify-content: center;
     width: 500px;
     height: 500px;
 
@@ -91,15 +96,22 @@ main > div {
 }
 
 .other-utilities {
-
+    justify-content: center;
+    align-items: center;
     
     background-color: blueviolet;
+
+    width: 300px;
+    height: 100px;
 }
 
 .operand {
     flex-wrap: wrap-reverse;
 
     background-color: chartreuse;
+
+    width: 300px;
+    height: 400px;
 }
 
 .calculation {
