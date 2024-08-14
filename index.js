@@ -48,11 +48,13 @@ function evaluate(inputEvaluation) {
 }
 
 let operand1, operand2, operator, sum = null;
+let input = "";
 let calcButtons = document.querySelectorAll("li");
 
 calcButtons.forEach((element) => {
     element.addEventListener("click", (e) => {
-        console.log(e.target.id)
+        input += e.target.id;
+        console.log(input);
     })
 })
 
