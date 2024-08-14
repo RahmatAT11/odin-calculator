@@ -22,16 +22,12 @@ function division(...numbers) {
     return sum;
 }
 
-function evaluate(inputEvaluation) {
-    inputEvaluation = inputEvaluation.replaceAll(" ", "");
-    let inputs = inputEvaluation.split("");
+function evaluate(operand1, operator, operand2) {
+    if (!operand1 && !operator && !operand2) {
+        return "ERROR: You need to provide value for each argument";
+    }
 
-    if (inputs.length !== 3) return;
-    
-    operand1 = inputs[0];
-    operand2 = inputs[2];
-    operator = inputs[1];
-
+    let sum;
     if (operator === "+") {
         sum = addition(operand1, operand2);
     } else if (operator === "-") {
@@ -42,21 +38,39 @@ function evaluate(inputEvaluation) {
         sum = division(operand1, operand2);
     }
 
-    operand1 = null;
-    operand2 = null;
-    operator = null;
+    return sum;
 }
 
-let operand1, operand2, operator, sum = null;
-let input = "";
-let calcButtons = document.querySelectorAll("li");
+function setUpButtons(input = "") {
+    let calcButtons = document.querySelectorAll("li");
 
-calcButtons.forEach((element) => {
-    element.addEventListener("click", (e) => {
-        input += e.target.id;
-        console.log(input);
+    calcButtons.forEach((element) => {
+        element.addEventListener("click", (e) => {
+            input += e.target.id;
+            console.log(input);
+        })
     })
-})
+}
+
+function dissectInput(input) {
+    let obj = {}
+    let operands = [...input.matchAll(/[0-9]+/g)];
+    let operators = [...input.matchAll(/[\+-\/*]/g)];
+    
+    obj.operands = operands;
+    obj.operators = operators;
+
+    return obj;
+}
+
+function main() {
+    let input = "";
+    setUpButtons(input);
+
+
+}
+
+main();
 
 // while (true) {
 //     let inputPrompt = prompt("Type the evaluation (only with +,-,*,/):");
