@@ -43,20 +43,21 @@ function evaluate(operand1, operator, operand2) {
 
 function setUpButtons(input = "") {
     let calcButtons = document.querySelectorAll("li");
+    const display = document.querySelector(".container > #display");
 
     calcButtons.forEach((element) => {
         element.addEventListener("click", (e) => {
             input += e.target.id;
-            console.log(input);
+            display.textContent = input;
         })
     })
 }
 
-function dissectInput(input) {
+function spreadOperandsAndOperators(input) {
     let obj = {}
     let operands = [...input.matchAll(/[0-9]+/g)];
     let operators = [...input.matchAll(/[\+-\/*]/g)];
-    
+
     obj.operands = operands;
     obj.operators = operators;
 
@@ -65,9 +66,8 @@ function dissectInput(input) {
 
 function main() {
     let input = "";
+    let operand1, operand2, operator, sum = null;
     setUpButtons(input);
-
-
 }
 
 main();
