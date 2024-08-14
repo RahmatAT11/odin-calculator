@@ -48,6 +48,13 @@ function evaluate(inputEvaluation) {
 }
 
 let operand1, operand2, operator, sum = null;
+let calcButtons = document.querySelectorAll("li");
+
+calcButtons.forEach((element) => {
+    element.addEventListener("click", (e) => {
+        console.log(e.target.id)
+    })
+})
 
 // while (true) {
 //     let inputPrompt = prompt("Type the evaluation (only with +,-,*,/):");
