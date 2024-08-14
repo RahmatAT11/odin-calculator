@@ -85,8 +85,6 @@ main {
     justify-content: center;
     width: 500px;
     height: 500px;
-
-    background-color: aqua;
 }
 
 main > div {
@@ -118,4 +116,18 @@ main > div {
     flex-direction: column;
 
     background-color: antiquewhite;
+}
+
+ul > li {
+    background-color: #bdbdbd;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+ul > li:hover {
+    background-color: #6e6e6e;
+}
+
+ul > li:active {
+    background-color: #3d3d3d;
 }
