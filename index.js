@@ -28,6 +28,7 @@ function evaluate(operand1, operator, operand2) {
     }
 
     let sum;
+    console.log(operator);
     if (operator === "+") {
         sum = addition(operand1, operand2);
     } else if (operator === "-") {
@@ -56,43 +57,48 @@ function setUpButtons() {
     btnOperators.forEach((element) => {
         element.addEventListener("click", (e) => {
             if (calculatorConfigs.operand1 === null) {
+                console.log("update! 1")
                 calculatorConfigs.operand1 = +calculatorConfigs.input.slice(0, calculatorConfigs.input.length-1);
                 calculatorConfigs.operatorIndex = calculatorConfigs.input.length - 1;
                 calculatorConfigs.operator = e.target.id;
             }
 
-            if (calculatorConfigs.operand2 === null && calculatorConfigs.operand1) {
-                console.log("update!")
-                calculatorConfigs.operand2 = +calculatorConfigs.input.slice(calculatorConfigs.operatorIndex, calculatorConfigs.input.length-1);
+            if (calculatorConfigs.operand2 === null && typeof calculatorConfigs.operand1 === "number" && isCalculationPossible(calculatorConfigs.input)) {
+                console.log("update! 2")
+                calculatorConfigs.operand2 = +calculatorConfigs.input.slice(calculatorConfigs.operatorIndex + 1, calculatorConfigs.input.length-1);
+                console.log(calculatorConfigs.operand2);
                 calculatorConfigs.sum = evaluate(calculatorConfigs.operand1, calculatorConfigs.operator, calculatorConfigs.operand2);
+                calculatorConfigs.operator = e.target.id;
 
                 const newInput = calculatorConfigs.sum.toString() + calculatorConfigs.operator;
                 
                 calculatorConfigs.input = newInput;
                 calculatorConfigs.operand1 = calculatorConfigs.sum;
-                calculatorConfigs.operator = e.target.id;
                 calculatorConfigs.operatorIndex = calculatorConfigs.input.length - 1;
                 calculatorConfigs.operand2 = null;
 
                 display.textContent = calculatorConfigs.input;
-
-                console.log(calculatorConfigs)
+                console.log(calculatorConfigs);
             }
         })
     })
 
 }
 
-// function spreadOperandsAndOperators(input) {
-//     let obj = {}
-//     let operands = [...input.matchAll(/[0-9]+/g)];
-//     let operators = [...input.matchAll(/[\+-\/*]/g)];
+function isCalculationPossible(input) {
+    let obj = {}
+    let operands = [...input.matchAll(/[0-9]+/g)];
+    let operators = [...input.matchAll(/[\+-\/*]/g)];
 
-//     obj.operands = operands;
-//     obj.operators = operators;
+    obj.operands = operands;
+    obj.operators = operators;
 
-//     return obj;
-// }
+    if (obj.operands.length > 1 && obj.operators.length > 0) {
+        return true;
+    }
+
+    return false;
+}
 
 function resetCalculatorConfigs() {
     calculatorConfigs.operand1 = null;
