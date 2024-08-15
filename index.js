@@ -27,6 +27,14 @@ function evaluate(operand1, operator, operand2) {
         return "ERROR: You need to provide value for each argument";
     }
 
+    if (operand1 === 0 && operand2 === 0 && operator === "/") {
+        return "ERROR: Result is undefined";
+    }
+
+    if (operand2 === 0 && operator === "/") {
+        return "ERROR: Cannot divide by zero";
+    }
+
     let sum;
     console.log(operator);
     if (operator === "+") {
@@ -44,45 +52,85 @@ function evaluate(operand1, operator, operand2) {
 
 function setUpButtons() {
     let calcButtons = document.querySelectorAll("li");
-    let btnOperators = document.querySelectorAll(".calculation li")
+    let btnOperators = document.querySelectorAll(".calculation li");
     const display = document.querySelector(".container > #display");
+    const resetACbtn = document.querySelector("#AC");
+
+    resetACbtn.addEventListener('click', (e) => {
+        display.textContent = "0";
+        console.log(e.target.id);
+        resetCalculatorConfigs();
+        main();
+    })
 
     calcButtons.forEach((element) => {
-        element.addEventListener("click", (e) => {
-            calculatorConfigs.input += e.target.id;
-            display.textContent = calculatorConfigs.input;
-        })
+        if (element.id === "AC") {
+            return;
+        }
+
+        if (element.id === "=") {
+            element.addEventListener('click', (e) => {
+                evaluateInput();
+                disableBtns();
+            })
+        }
+        element.addEventListener("click", readBtn)
     })
 
     btnOperators.forEach((element) => {
-        element.addEventListener("click", (e) => {
-            if (calculatorConfigs.operand1 === null) {
-                console.log("update! 1")
-                calculatorConfigs.operand1 = +calculatorConfigs.input.slice(0, calculatorConfigs.input.length-1);
-                calculatorConfigs.operatorIndex = calculatorConfigs.input.length - 1;
-                calculatorConfigs.operator = e.target.id;
-            }
-
-            if (calculatorConfigs.operand2 === null && typeof calculatorConfigs.operand1 === "number" && isCalculationPossible(calculatorConfigs.input)) {
-                console.log("update! 2")
-                calculatorConfigs.operand2 = +calculatorConfigs.input.slice(calculatorConfigs.operatorIndex + 1, calculatorConfigs.input.length-1);
-                console.log(calculatorConfigs.operand2);
-                calculatorConfigs.sum = evaluate(calculatorConfigs.operand1, calculatorConfigs.operator, calculatorConfigs.operand2);
-                calculatorConfigs.operator = e.target.id;
-
-                const newInput = calculatorConfigs.sum.toString() + calculatorConfigs.operator;
-                
-                calculatorConfigs.input = newInput;
-                calculatorConfigs.operand1 = calculatorConfigs.sum;
-                calculatorConfigs.operatorIndex = calculatorConfigs.input.length - 1;
-                calculatorConfigs.operand2 = null;
-
-                display.textContent = calculatorConfigs.input;
-                console.log(calculatorConfigs);
-            }
-        })
+        element.addEventListener("click", evaluateInput);
     })
+}
 
+function readBtn(e) {
+    calculatorConfigs.input += e.target.id;
+    display.textContent = calculatorConfigs.input;
+}
+
+function disableBtns() {
+    let calcButtons = document.querySelectorAll("li");
+
+    calcButtons.forEach((element) => {
+        element.removeEventListener('click', readBtn);
+        element.removeEventListener('click', evaluateInput);
+    })
+}
+
+function evaluateInput(e) {
+    const display = document.querySelector(".container > #display");
+
+    if (calculatorConfigs.operand1 === null) {
+        console.log("update! 1")
+        calculatorConfigs.operand1 = +calculatorConfigs.input.slice(0, calculatorConfigs.input.length-1);
+        calculatorConfigs.operatorIndex = calculatorConfigs.input.length - 1;
+        calculatorConfigs.operator = e.target.id;
+    }
+
+    if (calculatorConfigs.operand2 === null && typeof calculatorConfigs.operand1 === "number" && isCalculationPossible(calculatorConfigs.input)) {
+        console.log("update! 2")
+        calculatorConfigs.operand2 = +calculatorConfigs.input.slice(calculatorConfigs.operatorIndex + 1, calculatorConfigs.input.length-1);
+        console.log(calculatorConfigs.operand2);
+        calculatorConfigs.sum = evaluate(calculatorConfigs.operand1, calculatorConfigs.operator, calculatorConfigs.operand2);
+
+        if (typeof calculatorConfigs.sum === "string" && calculatorConfigs.sum.includes("ERROR")) {
+            calculatorConfigs.input = calculatorConfigs.sum;
+            display.textContent = calculatorConfigs.input;
+            disableBtns();
+            return;
+        }
+
+        calculatorConfigs.operator = e.target.id;
+
+        const newInput = calculatorConfigs.sum.toString() + calculatorConfigs.operator;
+        
+        calculatorConfigs.input = newInput;
+        calculatorConfigs.operand1 = calculatorConfigs.sum;
+        calculatorConfigs.operatorIndex = calculatorConfigs.input.length - 1;
+        calculatorConfigs.operand2 = null;
+
+        display.textContent = calculatorConfigs.input;
+        console.log(calculatorConfigs);
+    }
 }
 
 function isCalculationPossible(input) {
