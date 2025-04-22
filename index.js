@@ -87,7 +87,23 @@ const populateOperation = (e) => {
     return;
   }
 
-  if (operation === null && e.target.id !== 'equals' && e.target.id !== 'clear') {
+  if (e.target.id === 'decimal') {
+    if (!input.textContent.includes('.')) {
+      input.textContent += '.';
+    }
+    return;
+  }
+
+  if (e.target.id === 'backspace') {
+    if (input.textContent.length > 1) {
+      input.textContent = input.textContent.slice(0, -1);
+    } else {
+      input.textContent = '';
+    }
+    return;
+  }
+
+  if (operation === null && e.target.id !== 'equals' && e.target.id !== 'clear' && e.target.id !== 'decimal' && e.target.id !== 'backspace') {
     operation = e.target.id;
     number1 = parseFloat(input.textContent);
     input.textContent = e.target.textContent;
