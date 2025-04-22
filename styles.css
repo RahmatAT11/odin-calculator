@@ -36,7 +36,7 @@ main {
   text-align: left;
   padding: 10px;
   
-  width: 60vw;
+  width: 40vw;
 
   display: flex;
   justify-content: space-between;
@@ -62,11 +62,11 @@ main {
   align-self: center;
 
   height: auto;
-  width: 31vw;
+  width: 20vw;
 }
 
 #operator-buttons {
-  width: 40vw;
+  width: 24vw;
 }
 
 .btn {
